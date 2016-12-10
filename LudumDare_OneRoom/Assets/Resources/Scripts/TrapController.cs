@@ -14,6 +14,7 @@ public class TrapController : MonoBehaviour {
     [SerializeField]
     private int direction;
 
+
     void Start()
     {
         startingPoint = transform.position;

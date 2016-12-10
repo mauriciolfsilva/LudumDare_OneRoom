@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour {
         timePassed = 0;
 	}
 
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag.Equals("Trap"))
+            Debug.Log("Morreu");
+    }
     public float Speed
     {
         get
