@@ -57,7 +57,7 @@ public class TrapController : MonoBehaviour {
                     break;
                 case "Saw":
                     transform.position += new Vector3(0, Time.deltaTime * speed * 1f * direction, 0);
-                    transform.Rotate(0, 0, Time.deltaTime * 720);
+                    transform.Rotate(0, Time.deltaTime * 720, 0);
                     if(Mathf.Abs(startingPoint.y - transform.position.y) > 15)
                     {
                         speed *= -1;
