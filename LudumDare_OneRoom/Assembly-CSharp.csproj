@@ -49,6 +49,7 @@
      <Compile Include="Assets\Resources\Scripts\CameraController.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Resources\Scripts\TrapController.cs" />
+     <Compile Include="Assets\Resources\Scripts\TrapSpawn.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

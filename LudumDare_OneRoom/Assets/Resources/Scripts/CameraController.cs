@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     GameObject player;
-    public GameObject trap;
+    public GameObject shadow;
     [SerializeField]
     private float speed;
 
@@ -32,8 +32,8 @@ public class CameraController : MonoBehaviour {
     {
         if (this.tag.Equals("MainCamera"))
         {
-            Vector3 actualPoint = pointToSpawn();
-            trap.transform.position = new Vector3(actualPoint.x, actualPoint.y, player.transform.position.z - 30f);
+            //Vector3 actualPoint = pointToSpawn();
+            //shadow.transform.position = new Vector3(actualPoint.x, actualPoint.y, player.transform.position.z - 30f);
             if (Input.GetKey(KeyCode.W)) this.transform.position = new Vector3(this.transform.position.x,
                                                                                         this.transform.position.y + player.GetComponent<PlayerController>().Speed * Time.deltaTime,
                                                                                         this.transform.position.z);
