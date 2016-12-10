@@ -37,18 +37,10 @@ public class PlayerController : MonoBehaviour {
     void Control()
     {
         #region MoveDirection
-        if (Input.GetKey(KeyCode.W)) this.transform.position = new Vector3(this.transform.position.x,
-                                                                           this.transform.position.y + speed * Time.deltaTime,
-                                                                           this.transform.position.z);
-        if (Input.GetKey(KeyCode.S)) this.transform.position = new Vector3(this.transform.position.x,
-                                                                           this.transform.position.y - speed * Time.deltaTime,
-                                                                           this.transform.position.z);
-        if (Input.GetKey(KeyCode.A)) this.transform.position = new Vector3(this.transform.position.x - speed * Time.deltaTime,
-                                                                           this.transform.position.y,
-                                                                           this.transform.position.z);
-        if (Input.GetKey(KeyCode.D)) this.transform.position = new Vector3(this.transform.position.x + speed * Time.deltaTime,
-                                                                           this.transform.position.y,
-                                                                           this.transform.position.z);
+        if (Input.GetKey(KeyCode.W) && this.transform.position.y < 430) this.transform.position += Vector3.forward * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.S) && this.transform.position.y > -428) this.transform.position += Vector3.back * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.A) && this.transform.position.x > -413) this.transform.position += Vector3.left * speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.D) && this.transform.position.x < 445) this.transform.position += Vector3.right * speed * Time.deltaTime;
         #endregion
 
         #region LookAtDirection // Not Working Yet
@@ -92,8 +84,8 @@ public class PlayerController : MonoBehaviour {
             speed = Mathf.Lerp(speed, 20,timePassed);
             if (Input.GetKey(KeyCode.W)) transform.Rotate(new Vector3(timePassed * 90, 0, 0));
             else if (Input.GetKey(KeyCode.S)) transform.Rotate(new Vector3(timePassed * -90, 0, 0));
-            else if (Input.GetKey(KeyCode.A)) transform.Rotate(new Vector3(0, timePassed * 90, 0));
-            else if (Input.GetKey(KeyCode.D)) transform.Rotate(new Vector3(0, timePassed * -90, 0));
+            else if (Input.GetKey(KeyCode.A)) transform.Rotate(new Vector3(0, 0, timePassed * 90));
+            else if (Input.GetKey(KeyCode.D)) transform.Rotate(new Vector3(0, 0, timePassed * -90));
 
         }
 
@@ -105,5 +97,9 @@ public class PlayerController : MonoBehaviour {
             Quaternion target = Quaternion.Euler(0, 0, 0);
             transform.rotation = target;
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
     }
 }

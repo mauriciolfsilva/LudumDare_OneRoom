@@ -20,6 +20,20 @@ public class TrapSpawn : MonoBehaviour {
         }
     }
 
+    Vector3 pointToSpawn()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            Debug.Log("Is executing");
+            return hit.point;
+        }
+        else
+            return Vector3.zero;
+    }
+
     public GameObject[] Traps
     {
         get
@@ -35,7 +49,7 @@ public class TrapSpawn : MonoBehaviour {
 	
 	void Update ()
     {
-		if(Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown (0))
         {
             Spawn(trapType);
         }
@@ -43,9 +57,8 @@ public class TrapSpawn : MonoBehaviour {
 
     void Spawn(int type)
     {
-        Camera cam = this.gameObject.GetComponent<Camera>();
-        Vector3 pos = cam.ScreenToWorldPoint(Input.mousePosition);
-        traps[type].transform.position = new Vector3(pos.x,pos.y,180);
+        Vector3 pos = pointToSpawn();
+        traps[type].transform.position = new Vector3(pos.x,20,pos.z);
         Instantiate(traps[type]);        
     }
 }
