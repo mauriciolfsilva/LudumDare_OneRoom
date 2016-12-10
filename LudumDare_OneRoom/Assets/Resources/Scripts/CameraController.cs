@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     GameObject player;
-
+    public GameObject trap;
     [SerializeField]
     private float speed;
 
@@ -15,10 +15,25 @@ public class CameraController : MonoBehaviour {
         speed = 20;
     }
 
+    Vector3 pointToSpawn(){
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000))
+        {
+            Debug.Log("Is executing");
+            return hit.point;
+        }
+        else
+            return Vector3.zero;
+    }
+
     void Update ()
     {
         if (this.tag.Equals("MainCamera"))
         {
+            Vector3 actualPoint = pointToSpawn();
+            trap.transform.position = new Vector3(actualPoint.x, actualPoint.y, player.transform.position.z - 30f);
             if (Input.GetKey(KeyCode.W)) this.transform.position = new Vector3(this.transform.position.x,
                                                                                         this.transform.position.y + player.GetComponent<PlayerController>().Speed * Time.deltaTime,
                                                                                         this.transform.position.z);
