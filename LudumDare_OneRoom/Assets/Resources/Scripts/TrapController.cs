@@ -10,6 +10,7 @@ public class TrapController : MonoBehaviour {
     private float speed;
     private Vector3 startingPoint;
 
+
     void Start()
     {
         startingPoint = transform.position;
