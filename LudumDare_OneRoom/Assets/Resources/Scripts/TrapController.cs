@@ -14,7 +14,6 @@ public class TrapController : MonoBehaviour {
     [SerializeField]
     private int direction;
 
-
     void Start()
     {
         startingPoint = transform.position;
@@ -89,7 +88,20 @@ public class TrapController : MonoBehaviour {
                     transform.Rotate(0, Time.deltaTime * 720, 0);
                     if(Mathf.Abs(startingPoint.z - transform.position.z) > 15)
                     {
+                        speed *= -1;
+                        if (startingPoint.z > transform.position.z) transform.position += Vector3.forward * 2;
+                        else transform.position -= Vector3.forward * 2;
+
+                    }
+                    break;
+                case "Bomb":
+                    float temp = Time.deltaTime;
+                    transform.localScale += new Vector3(direction * temp, direction * temp, direction * temp);
+                    if(transform.localScale.x >= 2 || transform.localScale.x <= 1)
+                    {
                         direction *= -1;
+                        if (transform.localScale.x >= 2f) transform.localScale = new Vector3(1.9f, 1.9f, 1.9f);
+                        else transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
                     }
                     break;
             }
@@ -111,6 +123,19 @@ public class TrapController : MonoBehaviour {
                     if (Mathf.Abs(startingPoint.x - transform.position.x) > 15)
                     {
                         speed *= -1;
+                        if (startingPoint.x > transform.position.x) transform.position += Vector3.right*2;
+                        else transform.position -= Vector3.right * 2;
+
+                    }
+                    break;
+                case "Bomb":
+                    float temp = Time.deltaTime;
+                    transform.localScale += new Vector3(direction * temp, direction * temp, direction * temp);
+                    if (transform.localScale.x >= 2 || transform.localScale.x <= 1)
+                    {
+                        direction *= -1;
+                        if (transform.localScale.x >= 2f) transform.localScale = new Vector3(1.9f, 1.9f, 1.9f);
+                        else transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
                     }
                     break;
             }
@@ -119,10 +144,10 @@ public class TrapController : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        Destroy(this.gameObject);
         if (collision.gameObject.tag.Equals("Player"))
         {
             Debug.Log("Dead");
-            Destroy(this.gameObject);
         }
     }
 }

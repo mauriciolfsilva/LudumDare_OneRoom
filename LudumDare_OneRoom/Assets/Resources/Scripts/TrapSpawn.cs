@@ -27,7 +27,6 @@ public class TrapSpawn : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, 1000))
         {
-            Debug.Log("Is executing");
             return hit.point;
         }
         else
@@ -58,7 +57,8 @@ public class TrapSpawn : MonoBehaviour {
     void Spawn(int type)
     {
         Vector3 pos = pointToSpawn();
-        traps[type].transform.position = new Vector3(pos.x,20,pos.z);
+        traps[type].transform.position = new Vector3(pos.x,10,pos.z);
+        if(pos.x != 0 && pos.y < 100)
         Instantiate(traps[type]);        
     }
 }

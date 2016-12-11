@@ -104,8 +104,4 @@ public class PlayerController : MonoBehaviour {
             transform.rotation = target;
         }
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-    }
 }
