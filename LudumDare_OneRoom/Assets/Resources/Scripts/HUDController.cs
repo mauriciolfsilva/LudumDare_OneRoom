@@ -6,9 +6,11 @@ public class HUDController : MonoBehaviour {
 
     GameObject fadePanel;
     GameObject[] trapButtons;
+    private bool selected;
+    private string typeSelected;
 
 	void Start () {
-
+        selected = false;
         if (GameObject.FindGameObjectWithTag("Fade") != null) fadePanel = GameObject.FindGameObjectWithTag("Fade");
         if (GameObject.FindGameObjectsWithTag("TrapButton") != null) trapButtons = GameObject.FindGameObjectsWithTag("TrapButton");
 	}
@@ -33,7 +35,7 @@ public class HUDController : MonoBehaviour {
             if (Physics.Raycast(ray, out hit, 1000))
             {
                 if (hit.collider.gameObject.tag.Equals("Play"))
-                    fadeScene("MainGame");
+                    fadeScene("Player Selection");
                 else if (hit.collider.gameObject.tag.Equals("Options"))
                     fadeScene("Options");
                 else if (hit.collider.gameObject.tag.Equals("TrapButton"))
@@ -45,7 +47,22 @@ public class HUDController : MonoBehaviour {
                     hit.collider.gameObject.GetComponent<TrapButton>().Selected = true;
                     this.gameObject.GetComponent<TrapSpawn>().TrapType = int.Parse(hit.collider.gameObject.name);
                 }
+
+                else if (hit.collider.gameObject.tag.Equals("Select Player"))
+                {
+                    hit.collider.gameObject.GetComponent<Animator>().Play("Dodge");
+                    selected = true;
+                    typeSelected = hit.collider.gameObject.name;
+                }
             }
+        }
+
+        if (selected)
+        {
+            StartCoroutine(changeScene("MainGame"));
+            selected = false;
+            Debug.Log(typeSelected);
+            PlayerPrefs.SetString("Type",typeSelected);
         }
 	}
 }

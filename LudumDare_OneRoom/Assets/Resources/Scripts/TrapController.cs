@@ -14,9 +14,18 @@ public class TrapController : MonoBehaviour {
     [SerializeField]
     private int direction;
 
+    private float timeToDestroy;
+
     void Start()
     {
         startingPoint = transform.position;
+
+        if (type.Equals("Arrow")) timeToDestroy = 0;
+        else if (type.Equals("Bomb")) timeToDestroy = 5;
+        else if (type.Equals("Rock")) timeToDestroy = 0;
+        else if (type.Equals("Saw")) timeToDestroy = 10;
+        else timeToDestroy = 15;
+
     }
 
     public int Direction
@@ -69,7 +78,15 @@ public class TrapController : MonoBehaviour {
 
     void Update () {
         Behavior(type,axis,direction);
-	}
+
+        if (!(type.Equals("Arrow")) && !(type.Equals("Rock")))
+        {
+            timeToDestroy -= Time.deltaTime;
+            if(timeToDestroy <= 0) Destroy(this.gameObject);
+        }
+
+
+    }
 
     void Behavior(string myType, string _axis, int _direction)
     {
@@ -86,12 +103,11 @@ public class TrapController : MonoBehaviour {
                 case "Saw":
                     transform.position += Vector3.forward * Time.deltaTime * speed * 1f * _direction;
                     transform.Rotate(0, Time.deltaTime * 720, 0);
-                    if(Mathf.Abs(startingPoint.z - transform.position.z) > 15)
+                    if(Mathf.Abs(startingPoint.z - transform.position.z) > 100)
                     {
                         speed *= -1;
                         if (startingPoint.z > transform.position.z) transform.position += Vector3.forward * 2;
                         else transform.position -= Vector3.forward * 2;
-
                     }
                     break;
                 case "Bomb":
@@ -144,10 +160,12 @@ public class TrapController : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+        if(!collision.gameObject.tag.Equals("Ground")) Destroy(this.gameObject);
         if (collision.gameObject.tag.Equals("Player"))
         {
             Debug.Log("Dead");
+            collision.gameObject.GetComponent<Animator>().Play("Death");
+            collision.gameObject.GetComponent<PlayerController>().Dead = true;
         }
     }
 }

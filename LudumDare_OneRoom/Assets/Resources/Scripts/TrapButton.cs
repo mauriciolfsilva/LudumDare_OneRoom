@@ -7,6 +7,12 @@ public class TrapButton : MonoBehaviour {
     private bool selected;
     [SerializeField]
     private int direction;
+    private Vector3 startScale;
+
+    void Start()
+    {
+        startScale = transform.localScale;
+    }
 
     public bool Selected
     {
@@ -49,7 +55,7 @@ public class TrapButton : MonoBehaviour {
                 transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
             else transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = startScale;
         }
 	}
 }
