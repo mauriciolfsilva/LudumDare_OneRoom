@@ -172,7 +172,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update () {
-        Control();
+        
         if(dead)
         {
             timePassed += Time.deltaTime;
@@ -181,5 +181,6 @@ public class PlayerController : MonoBehaviour {
                 Application.LoadLevel("Menu");
             }
         }
+        else Control();
     }
 }
