@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour {
         if (timeToSpawn <= 0)
         {
             Vector3 target = new Vector3(950, -90, Random.Range(0,950));
-            timeToSpawn = Random.Range(8,16);
+            timeToSpawn = Random.Range(0,6);
             cloud.transform.position = target;
             Instantiate(cloud);
         }
